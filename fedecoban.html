@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FEDECOBAN – Federación de Consejos Comunitarios</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde: #1B5E20;
+    --verde-m: #2E7D32;
+    --verde-l: #4CAF50;
+    --dorado: #B8860B;
+    --dorado-l: #D4A017;
+    --crema: #FAF6EE;
+    --crema2: #F2EBD9;
+    --cafe: #5D4037;
+    --text: #1A1A1A;
+    --text-m: #444;
+    --text-s: #777;
+    --blanco: #fff;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--blanco);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: #fff;
+    font-family: 'Playfair Display', serif;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--verde);
+    line-height: 1.2;
+  }
+  .nav-logo-sub { font-size: 0.65rem; color: var(--text-s); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-m); font-size: 0.9rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+
+  .nav-cta {
+    padding: 8px 22px; border-radius: 50px;
+    background: var(--verde); color: #fff;
+    font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--verde-m); }
+
+  /* HERO */
+  .hero {
+    margin-top: 72px;
+    min-height: 92vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--crema);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-left {
+    padding: 80px 6% 80px 8%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(27,94,32,0.1); color: var(--verde);
+    border: 1px solid rgba(27,94,32,0.25);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 500; margin-bottom: 24px;
+    width: fit-content;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem; font-weight: 700;
+    line-height: 1.15; color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span { color: var(--verde); }
+
+  .hero-desc {
+    font-size: 1.05rem; color: var(--text-m);
+    max-width: 480px; margin-bottom: 36px;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 14px 28px; background: var(--verde); color: #fff;
+    border-radius: 50px; font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(27,94,32,0.3);
+  }
+  .btn-primary:hover { background: var(--verde-m); transform: translateY(-1px); }
+
+  .btn-outline {
+    padding: 14px 28px; border: 1.5px solid var(--verde); color: var(--verde);
+    border-radius: 50px; font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    background: transparent;
+  }
+  .btn-outline:hover { background: rgba(27,94,32,0.06); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 52px;
+    padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--verde); }
+  .stat-lbl { font-size: 0.78rem; color: var(--text-s); margin-top: 2px; }
+
+  .hero-right {
+    position: relative;
+    background: linear-gradient(135deg, var(--verde) 0%, #2E7D32 60%, #1B5E20 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hero-right-inner {
+    padding: 60px 40px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hero-right-inner .big-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    opacity: 0.95;
+  }
+
+  .hero-quote {
+    font-size: 1rem; font-style: italic; opacity: 0.85;
+    padding: 16px 20px;
+    border-left: 3px solid rgba(255,255,255,0.5);
+    text-align: left; margin: 24px 0;
+  }
+
+  .hero-img-placeholder {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 6rem;
+    border: 4px solid rgba(255,255,255,0.2);
+  }
+
+  .pill-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+  .pill-tag {
+    background: rgba(255,255,255,0.15); color: #fff;
+    padding: 6px 14px; border-radius: 50px; font-size: 0.78rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* SECTION */
+  section { padding: 80px 8%; }
+
+  .section-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--verde); margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--text);
+    margin-bottom: 14px; line-height: 1.25;
+  }
+
+  .section-desc { font-size: 1rem; color: var(--text-m); max-width: 580px; }
+
+  /* NOSOTROS */
+  .nosotros {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    background: var(--blanco);
+  }
+
+  .nosotros-img {
+    width: 100%; height: 420px; border-radius: var(--radius);
+    background: var(--crema2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem; position: relative; overflow: hidden;
+  }
+
+  .nosotros-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(27,94,32,0.1), transparent);
+    border-radius: var(--radius);
+  }
+
+  .nosotros-content {}
+  .icon-list { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
+  .icon-item { display: flex; gap: 14px; align-items: flex-start; }
+  .icon-box {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(27,94,32,0.1); color: var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .icon-item-text h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 2px; }
+  .icon-item-text p { font-size: 0.85rem; color: var(--text-s); }
+
+  /* SERVICIOS */
+  .servicios-section { background: var(--crema); }
+  .servicios-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--blanco); border-radius: var(--radius);
+    padding: 28px 24px; box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.25s, box-shadow 0.25s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.12); }
+
+  .card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(27,94,32,0.1); color: var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px;
+  }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 0.85rem; color: var(--text-s); line-height: 1.55; }
+  .card-link { display: inline-block; margin-top: 14px; font-size: 0.82rem; font-weight: 500; color: var(--verde); }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--verde);
+    color: #fff;
+    text-align: center;
+    padding: 80px 8%;
+  }
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; margin-bottom: 14px;
+  }
+  .cta-banner p { font-size: 1rem; opacity: 0.88; max-width: 520px; margin: 0 auto 32px; }
+  .btn-white {
+    display: inline-block; padding: 14px 32px;
+    background: #fff; color: var(--verde);
+    border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-white:hover { background: var(--crema); }
+
+  /* CONTACTO */
+  .contacto-section {
+    background: var(--blanco);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+
+  .contact-info h2 { margin-bottom: 16px; }
+  .contact-items { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .contact-item { display: flex; gap: 14px; }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(27,94,32,0.1); color: var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-item-text h4 { font-size: 0.9rem; font-weight: 500; }
+  .contact-item-text p { font-size: 0.85rem; color: var(--text-s); }
+  .contact-item-text a { color: var(--verde); text-decoration: none; }
+
+  .contact-form { background: var(--crema); border-radius: var(--radius); padding: 36px; }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; color: var(--text-m); }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 11px 14px; border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.12); background: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text);
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--verde); }
+  .form-group textarea { height: 110px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-submit {
+    width: 100%; padding: 13px; background: var(--verde);
+    color: #fff; border: none; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--verde-m); }
+
+  /* FOOTER */
+  footer {
+    background: #0f2d0f; color: rgba(255,255,255,0.85);
+    padding: 60px 8% 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-logo-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: #fff;
+  }
+  .footer-logo-name {
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff;
+  }
+  .footer-desc { font-size: 0.85rem; line-height: 1.7; max-width: 300px; opacity: 0.8; }
+  .footer-quote {
+    margin-top: 16px; font-style: italic; font-size: 0.82rem;
+    opacity: 0.65; border-left: 2px solid rgba(255,255,255,0.3);
+    padding-left: 12px;
+  }
+  footer h4 { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 16px; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  footer ul a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.85rem; transition: color 0.2s; }
+  footer ul a:hover { color: #fff; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px; display: flex; justify-content: space-between;
+    font-size: 0.8rem; opacity: 0.55;
+  }
+  .footer-bottom a { color: rgba(255,255,255,0.6); text-decoration: none; margin-left: 16px; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero h1 { font-size: 2.3rem; }
+    .nosotros, .contacto-section { grid-template-columns: 1fr; gap: 36px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .servicios-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">F</div>
+    <div>
+      <div class="nav-logo-text">FEDECOBAN</div>
+      <div class="nav-logo-sub">Federación Afro Antioquia</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#nosotros">Quiénes Somos</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#galeria">Galería</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Contáctanos</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">🌿 Desde 2013 · Comunidades Afrodescendientes</div>
+    <h1>Raíz, Memoria<br>y <span>Voz Afro</span></h1>
+    <p class="hero-desc">Fortalecemos procesos comunitarios afrodescendientes mediante acciones afirmativas, protección del medio ambiente y defensa de derechos.</p>
+    <div class="hero-btns">
+      <a href="#servicios" class="btn-primary">Nuestros Servicios</a>
+      <a href="#contacto" class="btn-outline">Contáctanos</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-lbl">Organizaciones<br>Afiliadas</div>
+      </div>
+      <div>
+        <div class="stat-num">11</div>
+        <div class="stat-lbl">Años de<br>Trayectoria</div>
+      </div>
+      <div>
+        <div class="stat-num">13</div>
+        <div class="stat-lbl">Servicios<br>Especializados</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">Compromiso<br>Comunitario</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-img-placeholder">🌿</div>
+      <div class="big-text">Federación de Consejos Comunitarios y Organizaciones de Base de Comunidades Negras de Antioquia</div>
+      <div class="hero-quote">"Caminamos con las comunidades, construimos desde la raíz y fortalecemos el liderazgo afro para un futuro digno."</div>
+      <div class="pill-tags">
+        <span class="pill-tag">🌱 Raíz Comunitaria</span>
+        <span class="pill-tag">📚 Conocimiento</span>
+        <span class="pill-tag">🤝 Liderazgo</span>
+        <span class="pill-tag">🌍 Medio Ambiente</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nosotros">
+    <div class="nosotros-img">🌍</div>
+    <div class="nosotros-content">
+      <span class="section-label">Quiénes Somos</span>
+      <h2 class="section-title">Construimos Desde la Raíz</h2>
+      <p class="section-desc"><strong>FEDECOBAN</strong> es una organización de segundo grado conformada por 50 organizaciones de Antioquia. Fundada el 13 de marzo del año 2013, trabajamos desde el conocimiento normativo, organizativo y cultural.</p>
+      <p class="section-desc" style="margin-top:12px">Impulsamos procesos comunitarios que garantizan bienestar, autonomía y dignidad a las comunidades afrodescendientes.</p>
+      <div class="icon-list">
+        <div class="icon-item">
+          <div class="icon-box">🌱</div>
+          <div class="icon-item-text">
+            <h4>Raíz Comunitaria</h4>
+            <p>Fortalecemos la identidad cultural y los lazos comunitarios afrodescendientes.</p>
+          </div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-box">📚</div>
+          <div class="icon-item-text">
+            <h4>Conocimiento Normativo</h4>
+            <p>Asesoría en derechos étnicos, normatividad y procesos legales.</p>
+          </div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-box">🤝</div>
+          <div class="icon-item-text">
+            <h4>Liderazgo Organizacional</h4>
+            <p>Consolidación de estructuras comunitarias efectivas y sostenibles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="servicios-section">
+  <div class="servicios-header">
+    <div>
+      <span class="section-label">Lo Que Hacemos</span>
+      <h2 class="section-title">Servicios que Transforman</h2>
+      <p class="section-desc">Acompañamos a las comunidades con experiencia, conocimiento y compromiso genuino.</p>
+    </div>
+    <a href="#" class="btn-outline">Ver Todos</a>
+  </div>
+  <div class="cards-grid">
+    <a href="#" class="card">
+      <div class="card-icon">📋</div>
+      <h3>Normalización de Documentos</h3>
+      <p>Asesoría integral para trámites legales y documentación organizacional de comunidades.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+    <a href="#" class="card">
+      <div class="card-icon">📚</div>
+      <h3>Cátedra Afrocolombiana</h3>
+      <p>Capacitación en etnoeducación y estudios afrocolombianos para instituciones y comunidades.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+    <a href="#" class="card">
+      <div class="card-icon">🤝</div>
+      <h3>Fortalecimiento Organizacional</h3>
+      <p>Consolidación de estructuras comunitarias efectivas para el liderazgo afro.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+    <a href="#" class="card">
+      <div class="card-icon">🏡</div>
+      <h3>Trabajo Social</h3>
+      <p>Caracterizaciones y acompañamiento social directo en territorio con comunidades.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+    <a href="#" class="card">
+      <div class="card-icon">💧</div>
+      <h3>Recursos Hídricos</h3>
+      <p>Gestión y uso sostenible de recursos naturales hídricos en territorios afro.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+    <a href="#" class="card">
+      <div class="card-icon">⚖️</div>
+      <h3>Normatividad Afro</h3>
+      <p>Asesoría especializada en derechos étnicos y normatividad para comunidades negras.</p>
+      <span class="card-link">Ver más →</span>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <h2>¿Necesita Asesoría Especializada?</h2>
+  <p>Estamos listos para acompañarle en el fortalecimiento de su organización y comunidad. Contáctenos hoy mismo.</p>
+  <a href="#contacto" class="btn-white">Solicitar Información</a>
+</div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-section">
+    <div class="contact-info">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title">Estamos Aquí Para Usted</h2>
+      <p class="section-desc">Comuníquese con nosotros y le brindaremos la orientación que su organización necesita.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <h4>Teléfono</h4>
+            <p><a href="tel:+573186676603">+57 318 667 6603</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <h4>Correo Electrónico</h4>
+            <p><a href="mailto:info@fedecoban.org">info@fedecoban.org</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <h4>Dirección</h4>
+            <p>Calle 50 # 53 44, Oficina 607<br>Edificio María Victoria<br>Medellín, Antioquia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Envíenos un Mensaje</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Su nombre">
+        </div>
+        <div class="form-group">
+          <label>Apellido</label>
+          <input type="text" placeholder="Su apellido">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Organización</label>
+        <input type="text" placeholder="Nombre de su organización">
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="¿En qué podemos ayudarle?"></textarea>
+      </div>
+      <button class="form-submit">Enviar Mensaje</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">
+        <div class="footer-logo-icon">F</div>
+        <div class="footer-logo-name">FEDECOBAN</div>
+      </div>
+      <p class="footer-desc">Organización de segundo grado conformada por 50 organizaciones afrodescendientes de Antioquia. Trabajamos desde el conocimiento normativo, organizativo y cultural para fortalecer procesos comunitarios.</p>
+      <div class="footer-quote">"Caminamos con las comunidades, construimos desde la raíz y fortalecemos el liderazgo afro para un futuro digno."</div>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+573186676603">📞 +57 318 667 6603</a></li>
+        <li><a href="mailto:info@fedecoban.org">✉️ info@fedecoban.org</a></li>
+        <li><a href="#">📍 Medellín, Antioquia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#nosotros">Quiénes Somos</a></li>
+        <li><a href="#servicios">Línea de Medio Ambiente</a></li>
+        <li><a href="#servicios">Línea Estratégica</a></li>
+        <li><a href="#">Eventos y Actividades</a></li>
+        <li><a href="#">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 FEDECOBAN. Todos los derechos reservados.</span>
+    <div>
+      <a href="#">Política de Privacidad</a>
+      <a href="#">Términos y Condiciones</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
